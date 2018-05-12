@@ -1,6 +1,7 @@
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 [![Build Status](https://travis-ci.org/ekoeryanto/module-igniter.svg?branch=master)](https://travis-ci.org/ekoeryanto/module-igniter)
+[![Build status](https://ci.appveyor.com/api/projects/status/7p8m8vy0w14lah2i?svg=true)](https://ci.appveyor.com/project/nueko/module-igniter)
 [![Codecov](https://img.shields.io/codecov/c/github/ekoeryanto/module-igniter.svg)](https://codecov.io/gh/ekoeryanto/module-igniter)
 
 # NodeJS Module Igniter 

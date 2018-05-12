@@ -1,6 +1,6 @@
 
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
-[![CircleCI](https://img.shields.io/circleci/project/github/ekoeryanto/module-igniter.svg)](https://circleci.com/gh/ekoeryanto/module-igniter)
+[![Build Status](https://travis-ci.org/ekoeryanto/module-igniter.svg?branch=master)](https://travis-ci.org/ekoeryanto/module-igniter)
 
 # NodeJS Module Igniter 
 Automatic call nodejs module, originally created for load rollup-plugins.

@@ -17,7 +17,7 @@ npm i module-igniter
 yarn add module-igniter
 ```
 
-# Usage
+## Usage
 
 ### No Argument Passed
 

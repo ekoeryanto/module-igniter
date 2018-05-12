@@ -26,7 +26,7 @@ const igniter = require('module-igniter')
 const plug = igniter({prefix: 'rollup-plugin-'})
 const plugins = plug('commonjs', 'node-resolve')
 // or plug(['commonjs', 'node-resolve'])
-// return array of called rollup-plugin-commonjs and rollup-plugin-node-resolve
+// return [require('rollup-plugin-commonjs')(), require('rollup-plugin-node-resolve')()]
 ```
 
 ### With Argument Passed
@@ -35,15 +35,15 @@ const plugins = plug('commonjs', 'node-resolve')
 const igniter = require('module-igniter')
 const plug = igniter({prefix: 'rollup-plugin-'})
 const plugins = plug({replace: {'process.env.NODE_ENV': JSON.stringify(environment)})
-// return array of called rollup-plugin-replace({'process.env.NODE_ENV': JSON.stringify(environment)})
+// return [require('rollup-plugin-replace')({'process.env.NODE_ENV': JSON.stringify(environment)})]
 ```
 
-### Optional Environment
+### Optional Environment (Last Boolean Parameter)
 ```js
 const igniter = require('module-igniter')
 const plug = igniter({prefix: 'rollup-plugin-'})
 const plugins = plug({replace: {'process.env.NODE_ENV': JSON.stringify(environment)}, false)
-// return empty array
+// return []
 ```
 
 # License

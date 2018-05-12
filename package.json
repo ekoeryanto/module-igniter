@@ -9,14 +9,16 @@
   "scripts": {
     "prebuild": "yarn test",
     "build": "babel src -d .",
-    "test": "jest",
-    "prepublish": "yarn build"
+    "test": "jest --coverage",
+    "posttest": "codecov",
+    "prepublishOnly": "yarn build"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-env": "^1.7.0",
+    "codecov": "^3.0.2",
     "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.11.0",

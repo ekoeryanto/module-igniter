@@ -101,6 +101,16 @@ describe('with argument', () => {
       expected([expect.objectContaining({ baz: 1 })])
     )
   })
+  it('should have single string option in module', () => {
+    expect(plug({ foo: 'hello' })).toEqual(
+      expected([expect.stringMatching('hello')])
+    )
+  })
+  it('should have single array option in module', () => {
+    expect(plug({ foo: [['hello']] })).toEqual(
+      expected([expect.arrayContaining(['hello'])])
+    )
+  })
   it('should have multiple option object in module', () => {
     expect(plug({ foo: [{ baz: 1 }, { bax: 1 }] })).toEqual(
       expected([

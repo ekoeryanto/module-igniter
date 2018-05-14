@@ -1,5 +1,6 @@
 export default options => {
   const prefix = options.prefix || ''
+  const classic = options.classic
 
   return (...plugs) => {
     if (plugs.length < 1) throw new Error('No module to load')
@@ -17,8 +18,12 @@ export default options => {
 
     if (!test) return []
 
-    const callee = (name, opts) =>
-      require(prefix + name).apply(null, opts && [].concat(opts))
+    const callee = (name, opts) => {
+      opts = (opts ? [].concat(opts) : [])
+      const Fn = require(prefix + name)
+      if (classic) return new Fn(...opts)
+      return Fn.apply(null, opts)
+    }
 
     return (
       plugs

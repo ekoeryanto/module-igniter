@@ -17,26 +17,22 @@ export default options => {
 
     if (!test) return []
 
+    const callee = (name, opts) =>
+      require(prefix + name).apply(null, opts && [].concat(opts))
+
     return (
       plugs
         // remove dupe, empty and boolean(test) value
         .filter((v, i, a) => a.indexOf(v) === i && typeof v !== 'boolean' && v)
         .map(p => {
           if (typeof p === 'string') {
-            return require(prefix + p)()
+            return callee(p)
           } else if (Array.isArray(p)) {
-            return p.map(name => require(prefix + name)())
+            return p.map(name => callee(name))
           }
           return Object.keys(p)
             .filter(x => p[x])
-            .map(
-              z =>
-                p[z] === true
-                  ? require(prefix + z)()
-                  : Array.isArray(p[z])
-                    ? require(prefix + z)(...p[z])
-                    : require(prefix + z)(p[z])
-            )
+            .map(z => (p[z] === true ? callee(z) : callee(z, p[z])))
         })
         // flatten array
         .reduce((a, c) => a.concat(c), [])

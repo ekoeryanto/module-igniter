@@ -5,15 +5,19 @@ environment:
     - nodejs_version: "10"
 install:
   - ps: Install-Product node $env:nodejs_version
-  - yarn install
+  - node --version
+  - npm --version
+  - set PATH=%APPDATA%\npm;%PATH%
+  - npm --version
+  - npx --version
+  - npx npm@6 ci
 matrix:
   fast_finish: true
 build: off
 shallow_clone: true
 test_script:
-  - node --version
-  - yarn --version
-  - yarn test
+  - npm test
 cache:
   - node_modules
-  - '%LOCALAPPDATA%\Yarn'
+  - '%AppData%/npm-cache'
+  - '%AppData%/npm'

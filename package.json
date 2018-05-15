@@ -12,10 +12,10 @@
     "src"
   ],
   "scripts": {
-    "prebuild": "yarn test",
+    "prebuild": "npm test",
     "build": "babel src -d .",
     "test": "jest --coverage",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

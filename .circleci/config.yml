@@ -1,21 +1,55 @@
+workflows:
+  version: 2
+  node-multi-build:
+    jobs:
+      - node-v6
+      - node-v8
+      - node-v10
+
 version: 2
 jobs:
-  build:
+  node-base: &node-base
     docker:
-      - image: circleci/node:10
-    working_directory: ~/repo
+      - image: node
     steps:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-      - run: npm ci
+            - v{{ .Environment.CIRCLE_CACHE_VERSION }}-npm-lock-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "package-lock.json" }}
+            - v{{ .Environment.CIRCLE_CACHE_VERSION }}-npm-lock-master-{{ .Environment.CIRCLE_JOB }}-{{ checksum "package-lock.json" }}
+            - v{{ .Environment.CIRCLE_CACHE_VERSION }}-npm-cache-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}
+            - v{{ .Environment.CIRCLE_CACHE_VERSION }}-npm-cache-master-{{ .Environment.CIRCLE_JOB }}
+      - run:
+          name: Install npx
+          command: command -v npx >/dev/null 2>&1 || npm i --silent -g npx
+      - run:
+          name: Install dependencies
+          command: npx npm@6 ci
+      - run:
+          name: Test
+          command: npm test
+      - run:
+          name: Code Coverage
+          command: bash <(curl -s https://codecov.io/bash)
+
       - save_cache:
+          key: v{{ .Environment.CIRCLE_CACHE_VERSION }}-npm-lock-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-      - run: npm test
-      - run: bash <(curl -s https://codecov.io/bash)
+      - save_cache:
+          key: v{{ .Environment.CIRCLE_CACHE_VERSION }}-npm-cache-{{ .Branch }}-{{ .Environment.CIRCLE_JOB }}-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm/_cacache
 
-
+  node-v6:
+    <<: *node-base
+    docker:
+      - image: node:6
+  node-v8:
+    <<: *node-base
+    docker:
+      - image: node:8
+  node-v10:
+    <<: *node-base
+    docker:
+      - image: node:10

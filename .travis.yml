@@ -9,9 +9,9 @@ node_js:
   - "8"
   - "10"
 before_install:
-  - if [[ `npm -v` != 6* ]]; then npm i -g npm@6; fi
+  - command -v npx >/dev/null 2>&1 || npm i --silent -g npx
 install:
-  - npm ci
+  - npx npm@6 ci
 notifications:
     email: false
 after_success:

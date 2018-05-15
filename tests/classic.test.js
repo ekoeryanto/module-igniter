@@ -24,7 +24,7 @@ it('should should call with string parameters', () => {
 })
 
 it('should should call with mixed parameters', () => {
-  plug('one', ['two'], {one: {}, two: {}})
+  plug('one', ['two'], { one: true, two: true })
   expect(one).toHaveBeenCalled()
   expect(two).toHaveBeenCalled()
   expect(one).toHaveBeenCalledTimes(2)
@@ -42,6 +42,20 @@ it('should call just once when parameters passed is on the same method', () => {
   plug(['two', 'two'])
   expect(one).toHaveBeenCalledTimes(1)
   expect(two).toHaveBeenCalledTimes(1)
+})
+
+it('should call when last parameter is string true and popped', () => {
+  plug('one', 'true')
+})
+
+it('should call without prefix set', () => {
+  igniter()('../tests/mocks/class-one')
+})
+
+it('should not call when last parameter is falsy', () => {
+  plug('one', false)
+  plug('one', 'false')
+  plug('one', '0')
 })
 
 it('should be called with a string plugin argument passed', () => {

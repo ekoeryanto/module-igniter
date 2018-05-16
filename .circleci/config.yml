@@ -34,7 +34,7 @@ jobs:
           command: echo $JEST_ENV
       - run:
           name: Test
-          command: npx jest --ci --coverage --env=$JEST_ENV
+          command: npx jest --ci --coverage --env=node
       - run:
           name: Code Coverage
           command: bash <(curl -s https://codecov.io/bash)

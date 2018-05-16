@@ -1,15 +1,9 @@
-environment:
-  matrix:
-    - node_arch: "x64"
 install:
-  - ps: Install-Product node 10 $env:node_arch
+  - ps: Install-Product node 10 x64
   - npm install --silent --global npx
   - set PATH=%APPDATA%\npm;%PATH%
-  - npm install --silent >nul
-matrix:
-  fast_finish: true
+  - npx npm@6 ci --silent >nul
 build: off
-shallow_clone: true
 test_script:
   - rem *********** Using node 4 ***********
   - npx -p node@4 npm rebuild >nul
@@ -26,7 +20,8 @@ test_script:
   - rem *********** Using node 10 ***********
   - npx -p node@10 npm rebuild >nul
   - npx -p node@10 jest --ci --coverage
+after_test:
+  - npx codecov
 cache:
-  - node_modules
   - '%AppData%/npm-cache'
   - '%AppData%/npm'

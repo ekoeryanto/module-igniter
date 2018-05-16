@@ -25,7 +25,7 @@ jobs:
           command: command -v npx >/dev/null 2>&1 || npm i --silent -g npx
       - run:
           name: Install dependencies
-          command: npx npm@6 ci
+          command: npm install
       - run:
           name: Set Jest Environment
           command: if [[ `node -v` = v4* ]]; then export JEST_ENV=node; else export JEST_ENV=jsdom; fi

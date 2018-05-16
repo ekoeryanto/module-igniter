@@ -5,6 +5,7 @@ cache:
     - $HOME/.npm-cache
     - node_modules
 node_js:
+  - "4"
   - "6"
   - "8"
   - "10"
@@ -12,7 +13,8 @@ before_install:
   - command -v npx >/dev/null 2>&1 || npm i --silent -g npx
 install:
   - npx npm@6 ci
-script: npx jest --ci --coverage
+before_script: [ `node -v` = v4* ] && JEST_ENV=node || JEST_ENV=jsdom
+script: npx jest --ci --coverage --env=$JEST_ENV
 notifications:
     email: false
 after_success:

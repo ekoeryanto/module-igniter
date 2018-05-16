@@ -2,6 +2,7 @@ workflows:
   version: 2
   node-multi-build:
     jobs:
+      - node-v4
       - node-v6
       - node-v8
       - node-v10
@@ -26,8 +27,11 @@ jobs:
           name: Install dependencies
           command: npx npm@6 ci
       - run:
+          name: Set Jest Environment
+          command: [ `node -v` = v4* ] && JEST_ENV=node || JEST_ENV=jsdom
+      - run:
           name: Test
-          command: npx jest --ci --coverage
+          command: npx jest --ci --coverage --env=$JEST_ENV
       - run:
           name: Code Coverage
           command: bash <(curl -s https://codecov.io/bash)
@@ -41,6 +45,10 @@ jobs:
           paths:
             - ~/.npm/_cacache
 
+  node-v4:
+    <<: *node-base
+    docker:
+      - image: node:4
   node-v6:
     <<: *node-base
     docker:

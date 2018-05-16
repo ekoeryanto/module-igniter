@@ -1,20 +1,27 @@
-environment:
-  matrix:
-    - nodejs_version: "6"
-    - nodejs_version: "8"
-    - nodejs_version: "10"
 install:
-  - ps: Install-Product node $env:nodejs_version
-  - npx >nul 2>&1 || ( npm install --silent --global npx )
+  - ps: Install-Product node 10 x64
+  - npm install --silent --global npx
   - set PATH=%APPDATA%\npm;%PATH%
-  - npx npm@6 ci
-matrix:
-  fast_finish: true
+  - npx npm@6 ci --silent >nul
 build: off
-shallow_clone: true
 test_script:
-  - npm test
+  - rem *********** Using node 4 ***********
+  - npx -p node@4 npm rebuild >nul
+  - npx -p node@4 jest --ci --env=node
+
+  - rem *********** Using node 6 ***********
+  - npx -p node@6 npm rebuild >nul
+  - npx -p node@6 jest --ci
+
+  - rem *********** Using node 8 ***********
+  - npx -p node@8 npm rebuild >nul
+  - npx -p node@8 jest --ci
+
+  - rem *********** Using node 10 ***********
+  - npx -p node@10 npm rebuild >nul
+  - npx -p node@10 jest --ci --coverage
+after_test:
+  - npx codecov
 cache:
-  - node_modules
   - '%AppData%/npm-cache'
   - '%AppData%/npm'

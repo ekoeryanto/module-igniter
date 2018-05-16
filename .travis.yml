@@ -12,7 +12,7 @@ node_js:
 before_install:
   - command -v npx >/dev/null 2>&1 || npm i --silent -g npx
 install:
-  - npm install
+  - npx npm@6 ci
 script: npx jest --ci --coverage --env=node
 notifications:
     email: false

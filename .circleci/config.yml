@@ -27,14 +27,8 @@ jobs:
           name: Install dependencies
           command: npm install
       - run:
-          name: Set Jest Environment
-          command: if [[ `node -v` = v4* ]]; then export JEST_ENV=node; else export JEST_ENV=jsdom; fi
-      - run:
-          name: Show Jest Environment
-          command: echo $JEST_ENV
-      - run:
           name: Test
-          command: npx jest --ci --coverage --env=node
+          command: JEST_ENV=$([[ `node -v` = v4* ]] && echo "node" || echo "jsdom") &&  npx jest --env $JEST_ENV
       - run:
           name: Code Coverage
           command: bash <(curl -s https://codecov.io/bash)

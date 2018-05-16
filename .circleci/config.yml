@@ -28,7 +28,7 @@ jobs:
           command: npx npm@6 ci
       - run:
           name: Set Jest Environment
-          command: [ `node -v` = v4* ] && JEST_ENV=node || JEST_ENV=jsdom
+          command: if [[ `node -v` = v4* ]]; then JEST_ENV=node; else JEST_ENV=jsdom; fi
       - run:
           name: Test
           command: npx jest --ci --coverage --env=$JEST_ENV

@@ -47,6 +47,8 @@ export default opts => {
             .filter(x => p[x])
             .map(z => (p[z] === true ? callee(z) : callee(z, p[z])))
         })
+        // reflatten array
+        .reduce((a, c) => a.concat(c), [])
     )
   }
 }

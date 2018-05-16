@@ -12,6 +12,7 @@ before_install:
   - command -v npx >/dev/null 2>&1 || npm i --silent -g npx
 install:
   - npx npm@6 ci
+script: npx jest --ci --coverage
 notifications:
     email: false
 after_success:

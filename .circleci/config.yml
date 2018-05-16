@@ -27,7 +27,7 @@ jobs:
           command: npx npm@6 ci
       - run:
           name: Test
-          command: npm test
+          command: npx jest --ci --coverage
       - run:
           name: Code Coverage
           command: bash <(curl -s https://codecov.io/bash)

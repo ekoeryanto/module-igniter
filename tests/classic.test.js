@@ -18,9 +18,11 @@ it('should throw if no param passed', () => {
 })
 
 it('should should call with string parameters', () => {
-  plug('one', 'two')
+  plug('one', 'two', 'one::foo', 'two::foo')
   expect(one).toHaveBeenCalled()
   expect(two).toHaveBeenCalled()
+  expect(one.foo).toHaveBeenCalled()
+  expect(two.foo).toHaveBeenCalled()
 })
 
 it('should should call with mixed parameters', () => {

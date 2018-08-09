@@ -27,8 +27,19 @@ export default opts => {
 
     const callee = (name, opts) => {
       opts = opts ? [].concat(opts) : []
-      const Fn = require(prefix + name)
-      if (classic) return new Fn(...opts)
+
+      let Fn
+      if (name.indexOf('::') !== -1) {
+        const [parent, child] = name.split('::')
+        Fn = require(prefix + parent)[child]
+      } else {
+        Fn = require(prefix + name)
+      }
+
+      if (classic) {
+        return new Fn(...opts)
+      }
+
       return Fn.apply(null, opts)
     }
 

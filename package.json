@@ -1,6 +1,6 @@
 {
   "name": "module-igniter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Node module loader and executor.",
   "main": "index.js",
   "module": "src/index.js",
